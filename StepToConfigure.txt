@@ -1,0 +1,37 @@
+Para crear un formRequest para validar formularios de forma separada
+php artisan make:request StoreApiRequest
+php artisan make:middleware CheckClientCredentialsCustom
+
+consultas basicas eloquent
+$users = User::all();
+$user = User::find(1); // 1 es el ID del usuario que deseas obtener
+$activeUsers = User::where('status', 'active')->get();
+$firstActiveUser = User::where('status', 'active')->first();
+$countActiveUsers = User::where('status', 'active')->count();
+
+$users = User::where('status', 'active')
+              ->where(function ($query) {
+                  $query->where('type', 'admin')
+                        ->orWhere('type', 'editor');
+              })
+              ->get();
+
+Crear un Modelo
+php artisan make:model User
+Crear controller con operaciones basicas
+php artisan make:controller UserController --resource
+
+
+consulta con paginacion
+
+$perPage = 10; // Ajusta según tus necesidades
+$page = 2; // La página que deseas recuperar
+
+$users = User::where('status', 'active')
+    ->where(function ($query) {
+        $query->where('type', 'admin')
+            ->orWhere('type', 'editor');
+    })
+    ->paginate($perPage, ['*'], 'page', $page);
+
+return response()->json($users);
