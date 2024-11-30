@@ -22,16 +22,24 @@ class ProductRegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [            
-            'product_name' => 'required',     
+            'nombre' => 'required',     
             'product_url_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:4048',       
-            'product_price' => 'required',
+            'marca' => 'required',
+            'kilometraje' => 'required',
+            'año' => 'required',
+            'combustible' => 'required',
+            'transmision' => 'required',
+            'motor' => 'required',
+            'color' => 'required',
+            'puertas' => 'required',
+            'precio' => 'required',
             'categoria_id' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'product_name.required' => 'El campo nombre de producto es obligatorio.'            
+            'nombre.required' => 'El campo nombre de producto es obligatorio.'            
         ];
     }
 }

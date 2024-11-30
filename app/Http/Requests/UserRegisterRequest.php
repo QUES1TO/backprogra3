@@ -22,11 +22,12 @@ class UserRegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'nombre' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'last_name' => 'required',
-            'address' => 'required'
+            'apellido' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required'
         ];
     }
     public function messages()
