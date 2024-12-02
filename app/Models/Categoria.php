@@ -9,17 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Categoria extends Model
 {
     use HasFactory;
-    
     protected $fillable = [
         'nombre'
     ];
-
-    public function adornos(): HasMany
+    public function producto(): HasMany
     {
-        return $this->hasMany(Adorno::class);
-    }
-    public function productos(): HasMany
-    {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(producto::class);
     }
 }

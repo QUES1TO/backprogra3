@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Seller;
 use App\http\Requests\UserRegisterRequest;
-use App\http\Requests\UserSellerRegisterRequest;
 use App\http\Requests\UserLoginRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     function signUp(UserRegisterRequest $request)
-    {        
+    {
         $validated = $request->validated();
         $user = User::create($validated);
         $user->password=Hash::make($validated['password']);
@@ -22,8 +20,9 @@ class UserController extends Controller
         $respuesta = [
             "mensaje"=> "Usuario creado con exito!!!!"
         ];
-        return $this->jsonControllerResponse( $respuesta,201,true);
+        return json_encode($respuesta);
     }
+
     function signUpSeller(UserSellerRegisterRequest $request)
     {        
         $validated = $request->validated();
@@ -43,6 +42,7 @@ class UserController extends Controller
         ];
         return $this->jsonControllerResponse( $respuesta,201,true);
     }
+
     function login(UserLoginRequest $request)
     {
         $validated = $request->validated();
@@ -51,27 +51,49 @@ class UserController extends Controller
         {
             $user=auth('api')->user();
             $response = [
+                "name" =>$user->name,
                 "email"=>$user->email,
-                "token"=>$token,
-                "id" =>$user->id,
-                "role"=>$user->getRoleNames()[0]
+                "token"=>$token
             ];
             return $this->jsonControllerResponse( $response,200,true);
         }
         else
         {
             $response = [
-                "mensaje"=>"Email o password incorrectos"                
+                "mensaje"=>"Email o password incorrectos"
             ];
             return $this->jsonControllerResponse( $response,403,false);
         }
         //return json_encode($response);
     }
-    function index(Request $request)
+    public function index()
     {
-        $list = [
-            "primero" => "mi dato"
-        ];
-        return json_encode($list);
-    }                                                                                                                                
+        $user = User::all();
+        return $this->jsonControllerResponse($user, 201 , true );
+    }
+
+    public function update(Request $request, user $User)
+    {
+         $User->name=$request->input('name');
+         $User->email=$request->input('email');
+         $User->password=$request->input('password');
+         
+         $User->save();
+         $respuesta = [
+             "mensaje"=> "User actualizado"
+         ];
+         return $this->jsonControllerResponse( $respuesta,200,true);
+         
+   
+    }
+    
+    public function destroy(user $User)
+    {
+        //eliminar el producto
+         $User->delete();
+         $respuesta = [
+             "mensaje"=> "usuario eliminado con exito!!!!"
+         ];
+         return $this->jsonControllerResponse( $respuesta,200,true);
+    }
 }

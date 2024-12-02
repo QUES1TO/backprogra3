@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRegisterRequest extends BaseFormRequest
+class PasswordResetLinkRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,24 +22,15 @@ class UserRegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'apellido' => 'required',
-            'direccion' => 'required',
-            'telefono' => 'required'
+            'email' => 'required|email|exists:users,email'
         ];
     }
     public function messages()
     {
         return [
-            'nombre.required' => 'El campo nombre es obligatorio.',
-            //'nombre.string' => 'El campo nombre debe ser una cadena de texto.',
-            //'nombre.max' => 'El campo nombre no debe superar los :max caracteres.',
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El campo email debe ser una dirección de correo electrónico válida.',
-            'password.required' => 'El campo contraseña es obligatorio.',
-            'email.unique'=> 'El email ya existe'
+            'email.exists' => 'El email no es válido o no exite.',
         ];
     }
 }

@@ -1,5 +1,2 @@
 php artisan app:assign-permissions
 php artisan make:command AssignPermissions
-php artisan session:table
-php artisan make:notification ResetPasswordNotification
-php artisan vendor:publish

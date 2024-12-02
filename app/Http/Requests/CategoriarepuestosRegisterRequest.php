@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserLoginRequest extends BaseFormRequest
-{
+class CategoriarepuestosRegisterRequest extends BaseFormRequest
+{    
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -23,17 +22,13 @@ class UserLoginRequest extends BaseFormRequest
     public function rules(): array
     {
         return [            
-            'email' => 'required|email',
-            'password' => 'required'
+            'nombre' => 'required',            
         ];
     }
     public function messages()
     {
         return [
-            'email.required' => 'El campo email es obligatorio.',
-            'email.email' => 'El campo email debe ser una dirección de correo electrónico válida.',
-            'password.required' => 'El campo nombre es obligatorio.'
+            'nombre.required' => 'El campo nombre de Categoriaaepuestos es obligatorio.'            
         ];
     }
-    
 }

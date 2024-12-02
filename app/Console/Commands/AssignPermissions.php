@@ -25,7 +25,7 @@ class AssignPermissions extends Command
      */
     public function handle()
     {
-        $role = Role::create(['name' => 'Admin']);
+        $role = Role::create(['name' => 'admin']);
         $role = Role::create(['name' => 'Seller']);
     }
 }

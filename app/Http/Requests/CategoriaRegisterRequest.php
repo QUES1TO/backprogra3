@@ -22,8 +22,7 @@ class CategoriaRegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [            
-            'nombre' => 'required',     
-                   
+            'nombre' => 'required',            
         ];
     }
     public function messages()

@@ -36,8 +36,6 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\HandleInertiaRequests::class,
-            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ],
 
         'api' => [
@@ -72,7 +70,7 @@ class Kernel extends HttpKernel
     ];
     protected $routeMiddleware = [
         // Otros middleware...
-        'jwt' => \App\Http\Middleware\CheckClientCredentialsCustom::class,
+        'client' => \App\Http\Middleware\CheckClientCredentialsCustom::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
