@@ -34,6 +34,7 @@ class ProductoRegisterRequest extends BaseFormRequest
             'puertas' => 'required',
             'precio' => 'required',
             'categoria_id' => 'required',  
+            'user_id' => 'required', 
         ];
     }
     public function messages()

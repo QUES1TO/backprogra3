@@ -21,7 +21,8 @@ class Producto extends Model
         'puertas',
         'precio',
         'url_imagen',
-        'categoria_id'
+        'categoria_id',
+        'user_id'
     ];
     public function categoria(): BelongsTo
     {

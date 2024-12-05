@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string("url_imagen")->nullable();
             $table->unsignedBigInteger('categoria_id');             
             $table->foreign('categoria_id')->references('id')->on('categorias');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             
             $table->timestamps();
         });
