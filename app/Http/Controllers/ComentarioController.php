@@ -10,9 +10,12 @@ class ComentarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $comentario = Comentario::where('user_id','=',$request->get('user_id'))->with('user')->get();
+        return $this->jsonControllerResponse( $comentario,200,true);
+
     }
 
     /**

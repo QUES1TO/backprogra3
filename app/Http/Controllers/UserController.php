@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function index2()
+    {
+        //$categoria = Categoria::all();
+        $categoria = Categoria::get(['id','comentario']);
+        return $this->jsonControllerResponse( $categoria,200,true);
+    }
+
     function signUp(UserRegisterRequest $request)
     {
         $validated = $request->validated();
