@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\comentario;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\ComentarioRegisterRequest;
 class ComentarioController extends Controller
 {
     /**
@@ -26,11 +26,22 @@ class ComentarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ComentarioRegisterRequest $request)
     {
-        //
+        $validated = $request->validated();
+    
+        // Crear el comentario
+        $comentario = Comentario::create($validated);
+    
+        // Responder con éxito
+        $respuesta = [
+            "mensaje" => "Comentario creado con éxito!",
+            "comentario" => $comentario
+        ];
+    
+        return response()->json($respuesta, 201);
     }
-
+    
     /**
      * Display the specified resource.
      */
@@ -50,9 +61,17 @@ class ComentarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, comentario $comentario)
+    public function update(Request $request, comentario $categoria)
     {
-        //
+        // editar categoria
+        $user=auth('api')->user();
+        $comentario = categoria::where('id', $comentario->id)->first();
+        $comentario->nombre = $request['comentario'];
+        $comentario->save();
+        $respuesta = [
+            "mensaje"=> "comentario editada con exito!!!!"
+        ];
+        return $this->jsonControllerResponse( $respuesta,200,true);
     }
 
     /**

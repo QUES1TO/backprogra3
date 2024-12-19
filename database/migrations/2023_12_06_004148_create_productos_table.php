@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string("puertas");
             $table->string("precio");
             $table->string("url_imagen")->nullable();
+            $table->string("url_imagen2")->nullable();
+            $table->string("url_imagen3")->nullable();
+            $table->string("url_imagen4")->nullable();
             $table->unsignedBigInteger('categoria_id');             
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->unsignedBigInteger('user_id');

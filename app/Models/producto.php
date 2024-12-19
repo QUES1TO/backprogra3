@@ -21,6 +21,9 @@ class Producto extends Model
         'puertas',
         'precio',
         'url_imagen',
+        'url_imagen2',
+        'url_imagen3',
+        'url_imagen4',
         'categoria_id',
         'user_id'
     ];

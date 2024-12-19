@@ -43,22 +43,55 @@ class ProductoController extends Controller
     {
         //
         $validated = $request->validated();
-        $user=auth('api')->user();
+        $user = auth('api')->user();
         //$producto = producto ::create($validated);
-
+    
+        // Manejo de la primera imagen
         $image = $request->file('url_imagen');
         $imageName = time() . '.' . $image->extension();
         Storage::disk('public')->put($imageName, file_get_contents($image));
-
-        $data = $request->except('url_imagen');
-        $producto = producto ::create($data);
-        $producto ->url_imagen = $imageName;
+    
+        // Manejo de url_imagen2
+        $image2 = $request->file('url_imagen2');
+        if ($image2) {
+            $imageName2 = time() . '_2.' . $image2->extension();
+            Storage::disk('public')->put($imageName2, file_get_contents($image2));
+        }
+    
+        // Manejo de url_imagen3
+        $image3 = $request->file('url_imagen3');
+        if ($image3) {
+            $imageName3 = time() . '_3.' . $image3->extension();
+            Storage::disk('public')->put($imageName3, file_get_contents($image3));
+        }
+    
+        // Manejo de url_imagen4
+        $image4 = $request->file('url_imagen4');
+        if ($image4) {
+            $imageName4 = time() . '_4.' . $image4->extension();
+            Storage::disk('public')->put($imageName4, file_get_contents($image4));
+        }
+    
+        $data = $request->except(['url_imagen', 'url_imagen2', 'url_imagen3', 'url_imagen4']);
+        $producto = producto::create($data);
+        $producto->url_imagen = $imageName;
+        if (isset($imageName2)) {
+            $producto->url_imagen2 = $imageName2;
+        }
+        if (isset($imageName3)) {
+            $producto->url_imagen3 = $imageName3;
+        }
+        if (isset($imageName4)) {
+            $producto->url_imagen4 = $imageName4;
+        }
         $producto->save();
+    
         $respuesta = [
-            "mensaje"=> "Producto creado con exito!!!!"
+            "mensaje" => "Producto creado con éxito!!!!"
         ];
-        return $this->jsonControllerResponse( $respuesta,200,true);
+        return $this->jsonControllerResponse($respuesta, 200, true);
     }
+    
 
     /**
      * Display the specified resource.
