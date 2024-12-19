@@ -112,31 +112,48 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, producto $producto)
-    {
-        $image = $request->file('url_imagen');
-         $imageName = time() . '.' . $image->extension();
-         Storage::disk('public')->put($imageName, file_get_contents($image));        
-         $producto->url_imagen=$imageName;
-         $producto->nombre=$request->input('nombre');
-         $producto->calidad=$request->input('marca');
-         $producto->modelo=$request->input('kilometraje');
-         $producto->lado=$request->input('año');
-         $producto->stock=$request->input('combustible');
-         $producto->descripcion=$request->input('transmision');
-         $producto->precio=$request->input('motor');
-         $producto->precio=$request->input('color');
-         $producto->precio=$request->input('puertas');
-         $producto->precio=$request->input('precio');
-         $producto->categoria_id=$request->input('categoria_id');
-         $producto->save();
-         $respuesta = [
-             "mensaje"=> "producto actualizado"
-         ];
-         return $this->jsonControllerResponse( $respuesta,200,true);
-         
-   
-    }
+   public function update(Request $request, Producto $producto)
+{
+    
+
+    $image = $request->file('url_imagen');
+    $imageName = time() . '.' . $image->extension();
+    Storage::disk('public')->put($imageName, file_get_contents($image));
+    
+    $image2 = $request->file('url_imagen2');
+    $imageName2 = time() . '.' . $image2->extension();
+    Storage::disk('public')->put($imageName2, file_get_contents($image2));
+
+    $image3 = $request->file('url_imagen3');
+    $imageName3 = time() . '.' . $image3->extension();
+    Storage::disk('public')->put($imageName3, file_get_contents($image3));
+
+    $image4 = $request->file('url_imagen4');
+    $imageName4 = time() . '.' . $image4->extension();
+    Storage::disk('public')->put($imageName4, file_get_contents($image4));
+
+
+    // Actualizar los datos del producto
+    $producto->nombre = $request->input('nombre');
+    $producto->marca = $request->input('marca');
+    $producto->kilometraje = $request->input('kilometraje');
+    $producto->año = $request->input('año');
+    $producto->combustible = $request->input('combustible');
+    $producto->transmision = $request->input('transmision');
+    $producto->motor = $request->input('motor');
+    $producto->color = $request->input('color');
+    $producto->puertas = $request->input('puertas');
+    $producto->precio = $request->input('precio');
+    $producto->categoria_id = $request->input('categoria_id');
+    $producto->user_id = $request->input('user_id');
+    $producto->save();
+    $respuesta = [
+        "mensaje"=> "producto actualizado"
+    ];
+    // Responder con un mensaje de éxito
+    return $this->jsonControllerResponse($respuesta, 200, true);
+}
+
 
     /**
      * Remove the specified resource from storage.

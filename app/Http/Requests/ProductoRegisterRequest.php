@@ -40,7 +40,7 @@ class ProductoRegisterRequest extends BaseFormRequest
     public function messages()
     {
         return [
-           /* 'nombre.required' => 'El campo nombre  es obligatorio.',   */
+           'nombre.required' => 'El campo nombre  es obligatorio.',  
             /* 'calida.required' => 'El campo calidad  es obligatorio.',*/
             /* 'modelo.required' => 'El campo modelo  es obligatorio.',*/
              /*'lado.required' => 'El campo lado  es obligatorio.',*/

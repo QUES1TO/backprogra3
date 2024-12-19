@@ -72,20 +72,31 @@ class UserController extends Controller
         return $this->jsonControllerResponse($user, 201 , true );
     }
 
-    public function update(Request $request, user $User)
+    function update(UserEditRequest $request,$id)
     {
-         $User->name=$request->input('name');
-         $User->email=$request->input('email');
-         $User->password=$request->input('password');
-         
-         $User->save();
-         $respuesta = [
-             "mensaje"=> "User actualizado"
-         ];
-         return $this->jsonControllerResponse( $respuesta,200,true);
-         
-   
+        if($User = User::find($id))
+        {
+            $User->name = $request->input('name');
+            $User->email = $request->input('email');
+            $User->password = Hash::make($request->input('password'));
+            $User->apellido = Hash::make($request->input('apellido'));
+            $User->direccion = Hash::make($request->input('direccion'));
+            $User->telefono = Hash::make($request->input('telefono'));
+            $User->save();
+            $respuesta = [
+                "mensaje"=> "Usuario editado con exito!!!!"
+            ];
+            return $this->jsonControllerResponse( $respuesta,200,true);
+        }
+        else
+        {
+            $respuesta = [
+                "mensaje"=> "Usuario no encontrado!!!!"
+            ];
+            return $this->jsonControllerResponse( $respuesta,404,false);
+        }
     }
+
     
     public function destroy(user $User)
     {
